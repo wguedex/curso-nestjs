@@ -71,15 +71,18 @@ export class Vehicle {
     /**
      * Método asíncrono para obtener información del vehículo desde la API de NHTSA.
      */
-    async fetchVehicleData(): Promise<void> {
+    async fetchVehicleData(vin: string): Promise<VehicleDecodedDataResponse> {
         try {
-            const url = `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${this.vin}?format=json`;
-            const response = await axios.get(url);
-            console.log('Datos del vehículo obtenidos:', response.data.Results[0]);
+            const url = `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${vin}?format=json`;
+            const response = await axios.get<VehicleDecodedDataResponse>(url);
+            console.log('Datos del vehículo obtenidos:', response.data);  
+            return response.data; 
         } catch (error) {
             console.error('Error al obtener datos del vehículo:', error);
+            throw error;
         }
-    }
+        
+    }    
 
 }
 
@@ -87,6 +90,6 @@ export class Vehicle {
 const myCar = new Vehicle('Mustang', 'Ford', 'Coupe', '1FATP8UH3G5293070', 1968);
 console.log(myCar.description);  // Usa el getter para obtener la descripción.
 myCar.type = 'Convertible';      // Cambia el tipo usando el setter.
-myCar.fetchVehicleData();
+await myCar.fetchVehicleData('1FATP8UH3G5293070');
 console.log("¿Es clásico?:", myCar.isClassic);  // Usa el getter para verificar si es clásico.
 console.log(`Tipo actualizado: ${myCar.type}`); // Muestra el tipo actualizado.
