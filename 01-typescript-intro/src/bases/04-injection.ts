@@ -34,7 +34,7 @@ export class Pokemon {
 }
 
 const pokeApiAxios = new PokeApiAdapter();
-const pokeApiFetch = new PokeApiFetchAdapter();
+const pokeApiFetch = new PokeApiFetchAdapter(); //Genericos + sustitucion de Liskov
 
 export const charmander = new Pokemon( 4, 'Charmander', pokeApiAxios );
 

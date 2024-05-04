@@ -8,7 +8,9 @@ export interface HttpAdapter {
 }
 
 
-
+/**
+ * Genericos + sustitucion de Liskov
+ */
 export class PokeApiFetchAdapter implements HttpAdapter {
 
     async get<T>( url: string ):Promise<T> {
