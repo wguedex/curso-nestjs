@@ -1,16 +1,4 @@
-// Define un arreglo de objetos que representan carros. Inicialmente contiene un solo carro.
-export const car = [{
-    model: 'Model S',   // Modelo del carro.
-    brand: 'Tesla',     // Marca del carro.
-    type: 'Electric'    // Tipo de carro, en este caso, eléctrico.
-}]
 
-// Agrega un nuevo objeto carro al arreglo 'car' y luego imprime la nueva longitud del arreglo.
-console.log(car.push({
-    model: 'A4',        // Modelo del carro a agregar.
-    brand: 'Audi',      // Marca del carro a agregar.
-    type: 'Sedan'       // Tipo del carro a agregar.
-}));
 
 // Define una interfaz TypeScript para estandarizar la estructura de los objetos vehículo.
 interface Vehicle {
@@ -19,6 +7,27 @@ interface Vehicle {
     type: string;       // Tipo de vehículo.
     year?: number;      // Año del vehículo, es una propiedad opcional.
 }
+  
+// Define un arreglo de objetos que representan carros. Inicialmente contiene un solo carro.
+export const car: Vehicle[] = [];
+ 
+// Agrega un nuevo objeto carro al arreglo 'car' y luego imprime la nueva longitud del arreglo.
+console.log(car.push(
+    {
+        model: 'Model S',   // Modelo del carro.
+        brand: 'Tesla',     // Marca del carro.
+        type: 'Electric',    // Tipo de carro, en este caso, eléctrico.
+        year: 2023
+    }
+));
+ 
+// Agrega un nuevo objeto carro al arreglo 'car' y luego imprime la nueva longitud del arreglo.
+console.log(car.push({
+    model: 'A4',        // Modelo del carro a agregar.
+    brand: 'Audi',      // Marca del carro a agregar.
+    type: 'Sedan',       // Tipo del carro a agregar.
+    year: 2022
+}));
 
 // Crea un objeto que sigue la interfaz 'Vehicle', representando un Tesla Model 3.
 const tesla: Vehicle = {
@@ -32,7 +41,8 @@ const tesla: Vehicle = {
 const audi: Vehicle = {
     model: 'Q5',        // Modelo del vehículo.
     brand: 'Audi',      // Marca del vehículo.
-    type: 'SUV'         // Tipo de vehículo, SUV.
+    type: 'SUV',         // Tipo de vehículo, SUV.
+    year: 2023
 };
 
 // Agrega el objeto 'tesla' al arreglo 'car' y luego imprime la nueva longitud del arreglo.
