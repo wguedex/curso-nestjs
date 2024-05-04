@@ -1,12 +1,17 @@
+import axios from "axios";
+
 // Define una clase llamada 'Vehicle' que representará vehículos en general.
 export class Vehicle {
     // Propiedades públicas: accesibles desde fuera de la clase.
     public model: string;
     public brand: string;
+    public vin: string; // Propiedad para almacenar el VIN del vehículo.
 
     // Propiedades privadas: solo pueden ser accedidas o modificadas dentro de la clase.
     private _type: string;
     private _year?: number;
+
+    
 
     /**
      * Constructor de la clase 'Vehicle'.
@@ -15,10 +20,11 @@ export class Vehicle {
      * @param type Tipo del vehículo (como 'Sedan', 'SUV', 'Eléctrico', etc.).
      * @param year Año del vehículo, es opcional.
      */
-    constructor(model: string, brand: string, type: string, year?: number) {
+    constructor(model: string, brand: string, type: string, vin: string, year?: number) {
         this.model = model;
         this.brand = brand;
         this._type = type;
+        this.vin = vin;
         this._year = year;
     }
 
@@ -61,11 +67,26 @@ export class Vehicle {
         }
         return false;
     }
+
+    /**
+     * Método asíncrono para obtener información del vehículo desde la API de NHTSA.
+     */
+    async fetchVehicleData(): Promise<void> {
+        try {
+            const url = `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${this.vin}?format=json`;
+            const response = await axios.get(url);
+            console.log('Datos del vehículo obtenidos:', response.data.Results[0]);
+        } catch (error) {
+            console.error('Error al obtener datos del vehículo:', error);
+        }
+    }
+
 }
 
 // Ejemplo de uso:
-const myCar = new Vehicle('Mustang', 'Ford', 'Coupe', 1968);
+const myCar = new Vehicle('Mustang', 'Ford', 'Coupe', '1FATP8UH3G5293070', 1968);
 console.log(myCar.description);  // Usa el getter para obtener la descripción.
 myCar.type = 'Convertible';      // Cambia el tipo usando el setter.
+myCar.fetchVehicleData();
 console.log("¿Es clásico?:", myCar.isClassic);  // Usa el getter para verificar si es clásico.
 console.log(`Tipo actualizado: ${myCar.type}`); // Muestra el tipo actualizado.
