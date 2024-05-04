@@ -1,11 +1,11 @@
  
-import { Vehicle } from './bases/03-classes';
+import { charmander } from './bases/04-injection';
 import './style.css'
 import typescriptLogo from './typescript.svg' 
  
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <h1>Hello ${new Vehicle('Model 3', 'Tesla', 'Electric', '3VWJ07AJ5EM388202', 2022) }!!!</h1>
+  <h1>Hello ${ charmander.name } ${ charmander.id }!</h1>
     <a href="https://www.typescriptlang.org/" target="_blank">
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>    

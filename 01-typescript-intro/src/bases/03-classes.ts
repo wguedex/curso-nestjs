@@ -1,7 +1,9 @@
 import axios from "axios";
 
+  
 // Define una clase llamada 'Vehicle' que representará vehículos en general.
 export class Vehicle {
+
     // Propiedades públicas: accesibles desde fuera de la clase.
     public model: string;
     public brand: string;
@@ -10,9 +12,7 @@ export class Vehicle {
     // Propiedades privadas: solo pueden ser accedidas o modificadas dentro de la clase.
     private _type: string;
     private _year?: number;
-
-    
-
+ 
     /**
      * Constructor de la clase 'Vehicle'.
      * @param model Modelo del vehículo.
@@ -81,7 +81,7 @@ export class Vehicle {
             console.error('Error al obtener datos del vehículo:', error);
             throw error;
         }
-        
+    
     }    
 
 }
