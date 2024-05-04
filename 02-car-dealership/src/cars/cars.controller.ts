@@ -5,17 +5,16 @@ import { CarsService } from './cars.service';
 @Controller('cars')
 export class CarsController {
 
-    constructor(private carService: CarsService){
+  constructor(private readonly carService: CarsService) {}
 
-    }
+  @Get()
+  getAllCars() {
+    return this.carService.fidnAll();
+  }
 
-//   @Get()
-//   getAllCars(): string[] {
-//     return this.cars;
-//   }
+  @Get(':id')
+  getCarById(@Param('id') id: string) {
+    return this.carService.findOneById(+id);
+  }
 
-//   @Get(':id')
-//   getCarById( @Param('id') id:string){
-//     return this.cars[id];
-//   }
 }
