@@ -1,13 +1,12 @@
-
-
 // Define una clase llamada 'Vehicle' que representará vehículos en general.
 export class Vehicle {
-    
-    // Propiedades de la clase.
-    model: string;
-    brand: string;
-    type: string;
-    year?: number;
+    // Propiedades públicas: accesibles desde fuera de la clase.
+    public model: string;
+    public brand: string;
+
+    // Propiedades privadas: solo pueden ser accedidas o modificadas dentro de la clase.
+    private _type: string;
+    private _year?: number;
 
     /**
      * Constructor de la clase 'Vehicle'.
@@ -19,50 +18,54 @@ export class Vehicle {
     constructor(model: string, brand: string, type: string, year?: number) {
         this.model = model;
         this.brand = brand;
-        this.type = type;
-        this.year = year;
-        console.log(this.describe());
+        this._type = type;
+        this._year = year;
+    }
+
+    // Getter para acceder de forma segura a la propiedad privada '_type'.
+    get type(): string {
+        return this._type;
+    }
+
+    // Getter para acceder de forma segura a la propiedad privada '_year'.
+    get year(): number | undefined {
+        return this._year;
+    }
+
+    // Setter para actualizar el tipo del vehículo de forma controlada.
+    set type(newType: string) {
+        this._type = newType;
+    }
+
+    // Setter para actualizar el año del vehículo de forma controlada.
+    set year(newYear: number | undefined) {
+        this._year = newYear;
     }
 
     /**
      * Devuelve una descripción del vehículo.
      * @returns Descripción completa del vehículo.
      */
-    describe(): string {
+    get description(): string {
         return `Este es un ${this.brand} ${this.model}, tipo ${this.type}${this.year ? ", año " + this.year : ""}.`;
-    }
-
-    /**
-     * Actualiza el año del vehículo.
-     * @param newYear Nuevo año del modelo.
-     */
-    updateYear(newYear: number): void {
-        this.year = newYear;
     }
 
     /**
      * Comprueba si el vehículo es antiguo.
      * @returns true si el vehículo tiene más de 10 años.
      */
-    isClassic(): boolean {
+    get isClassic(): boolean {
         if (this.year) {
             const currentYear = new Date().getFullYear();
             return currentYear - this.year > 10;
         }
         return false;
     }
-
-    /**
-     * Imprime detalles del vehículo en la consola.
-     */
-    printDetails(): void {
-        console.log(this.describe());
-    }
 }
 
 // Ejemplo de uso:
 const myCar = new Vehicle('Mustang', 'Ford', 'Coupe', 1968);
-console.log(myCar.describe());  // Muestra la descripción del vehículo.
-myCar.updateYear(1969);         // Actualiza el año del vehículo.
-myCar.printDetails();           // Imprime los detalles del vehículo.
-console.log("¿Es clásico?:", myCar.isClassic());  // Verifica si es un vehículo clásico.
+console.log(myCar.description);  // Usa el getter para obtener la descripción.
+myCar.type = 'Convertible';      // Cambia el tipo usando el setter.
+console.log("¿Es clásico?:", myCar.isClassic);  // Usa el getter para verificar si es clásico.
+console.log(`Tipo actualizado: ${myCar.type}`); // Muestra el tipo actualizado.
