@@ -1,8 +1,6 @@
 import { name, age, isValid } from './bases/01-types';
 import './style.css'
-import typescriptLogo from './typescript.svg'
-// import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import typescriptLogo from './typescript.svg' 
  
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -12,5 +10,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>    
   </div>
 `
-
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+ 
