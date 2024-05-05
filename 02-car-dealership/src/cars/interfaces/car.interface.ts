@@ -1,8 +1,7 @@
 
 
-
 export interface Car {
-    id: string;
-    brand: string;
-    model: string;
+    id: string; 
+    readonly brand: string; 
+    readonly model: string;
 }
