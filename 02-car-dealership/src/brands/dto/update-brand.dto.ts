@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBrandDto } from './create-brand.dto';
+// Importa los decoradores de validación
+import { IsString, MinLength } from 'class-validator';
 
-export class UpdateBrandDto extends PartialType(CreateBrandDto) {}
+// Definición de la clase DTO para la actualización de datos de una marca
+export class UpdateBrandDto {
+    @IsString()
+    @MinLength(1)
+    name: string;
+}
