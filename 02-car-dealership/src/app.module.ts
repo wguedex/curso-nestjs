@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common'; 
+import { Module } from '@nestjs/common';
 import { CarsModule } from './cars/cars.module';
 import { BrandsModule } from './brands/brands.module';
 import { SeedModule } from './seed/seed.module';
@@ -8,6 +7,6 @@ import { SeedModule } from './seed/seed.module';
   imports: [CarsModule, BrandsModule, SeedModule],
   controllers: [],
   providers: [],
-  exports: []
+  exports: [],
 })
 export class AppModule {}
