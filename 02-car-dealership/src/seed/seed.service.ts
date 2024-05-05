@@ -19,7 +19,7 @@ export class SeedService {
     // CARS_SEED
     // BRANDS_SEED
     this.carsService.fillCarsWithSeedData( CARS_SEED );
-    // this.brandsService.fillBrandsWithSeedData( BRANDS_SEED );
+    this.brandsService.fillBrandsWithSeedData( BRANDS_SEED );
 
     return 'Seed executed';
 
