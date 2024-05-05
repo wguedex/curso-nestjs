@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Car } from './interfaces/car.interface';
 
 import { v4 as uuid } from 'uuid';
+import { CreateCarDTO } from './dto/create-car.dto';
 
 @Injectable()
 export class CarsService {
@@ -22,7 +23,7 @@ export class CarsService {
       brand: 'Jeep',
       model: 'Cherokee',
     },
-  ];
+  ];  
 
   fidnAll() {
     return this.cars;
@@ -38,6 +39,19 @@ export class CarsService {
 
     return car;
 
+  }
+
+  create(createCarDTO : CreateCarDTO){
+    const car : Car = {
+      'id' : uuid(),
+      'brand' : createCarDTO.brand, 
+      'model' : createCarDTO.model
+
+    }
+
+    this.cars.push(car)
+
+    return car;
   }
 
 }

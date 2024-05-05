@@ -22,7 +22,9 @@ export class CarsController {
   @Post()
   // @UsePipes(ValidationPipe)
   createCar( @Body() createCarDTO : CreateCarDTO){
-    return createCarDTO;
+
+    return this.carService.create(createCarDTO)
+    // return createCarDTO;
   }
 
   @Patch(':id')
@@ -39,5 +41,5 @@ export class CarsController {
         id
     };
   }
-
+ 
 }
