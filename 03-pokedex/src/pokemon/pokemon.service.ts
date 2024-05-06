@@ -15,22 +15,21 @@ export class PokemonService {
 
   constructor(
     @InjectModel( Pokemon.name ) 
-    private pokemonModel: Model<Pokemon>,    
+    private readonly pokemonModel: Model<Pokemon>,    
   ){
 
   }
   
   async create(createPokemonDto: CreatePokemonDto) {
- 
+
     try {
-       
       const newPokemon = new this.pokemonModel({
         no: createPokemonDto.no,
         name : createPokemonDto.name
       });      
        
        await newPokemon.save(); 
-
+       
        return newPokemon;
       
     } catch (error) {
