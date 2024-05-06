@@ -29,14 +29,15 @@ export class PokemonService {
       });      
        
        await newPokemon.save(); 
-       
+
        return newPokemon;
       
     } catch (error) {
-      if( error.code === 11000 ) {
-        throw new BadRequestException(`${ createPokemonDto.name } already exists!`)
-      }
-      throw new InternalServerErrorException('Something terribe happen!!!');
+      if (error.code === 11000) {
+        throw new BadRequestException(`Pokemon exists in db ${JSON.stringify(error.keyValue)}`);
+    } 
+    console.log(error);
+    throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`);
     }    
 
     return 'This action adds a new pokemon';
