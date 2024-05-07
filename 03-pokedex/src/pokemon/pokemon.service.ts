@@ -44,7 +44,6 @@ export class PokemonService {
   }
 
   async findOne(term: string): Promise<Pokemon> {
-  
     let pokemon: Pokemon;
 
     if (!isNaN(+term)) {
@@ -81,7 +80,7 @@ export class PokemonService {
       await pokemon.updateOne(updatePokemonDto);
       return { ...pokemon.toJSON(), ...updatePokemonDto };
     } catch (error) {
-       this.handleExceptions(error);
+      this.handleExceptions(error);
     }
   }
 
@@ -98,8 +97,11 @@ export class PokemonService {
   }
 
   async remove(id: string) {
-    const pokemon = await this.findOne(id);
-    await pokemon.deleteOne();
-}
+    // const pokemon = await this.findOne(id);
+    // await pokemon.deleteOne();
 
+    const result = this.pokemonModel.findByIdAndDelete(id);
+    return result;
+  }
+  
 }
