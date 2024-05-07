@@ -18,13 +18,13 @@ export class PokemonController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(id);
+  findOne(@Param('id') term: string) {
+    return this.pokemonService.findOne(term);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
-    return this.pokemonService.update(+id, updatePokemonDto);
+  update(@Param('id') term: string, @Body() updatePokemonDto: UpdatePokemonDto) {
+    return this.pokemonService.update(term, updatePokemonDto);
   }
 
   @Delete(':id')
