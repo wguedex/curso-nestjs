@@ -15,14 +15,21 @@ import * as bcryptjs from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
 import { isEmpty } from 'class-validator';
 import { PaginationDTO } from '../common/dto/pagination.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PokemonService {
+
+  private defaultLimit: number;
+
   constructor(
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
+    private readonly configSErvice : ConfigService
   ) {
-    console.log(process.env.DEFAULT_LIMIT)
+    console.log(process.env.DEFAULT_LIMIT);
+    const defaultLimit = configSErvice.get<number>('defaultLimit');  
+    console.log(this.defaultLimit)
   }
 
   async create(createPokemonDto: CreatePokemonDto) {
@@ -47,7 +54,7 @@ export class PokemonService {
     const {limit = 10, offset = 0} = paginationDTO;
 
     return this.pokemonModel.find()
-    .limit( limit )
+    .limit( this.defaultLimit )
     .skip( offset ) 
     .sort({
       no : 1
