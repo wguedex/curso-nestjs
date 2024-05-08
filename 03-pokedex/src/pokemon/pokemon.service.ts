@@ -40,7 +40,11 @@ export class PokemonService {
   }
 
   findAll() {
-    return `This action returns all pokemon`;
+
+    return this.pokemonModel.find()
+    .limit( 5 )
+    .skip( 5 ) 
+    
   }
 
   async findOne(term: string): Promise<Pokemon> {
