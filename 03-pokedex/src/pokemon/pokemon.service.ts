@@ -27,8 +27,8 @@ export class PokemonService {
     private readonly pokemonModel: Model<Pokemon>,
     private readonly configSErvice : ConfigService
   ) {
-    console.log(process.env.DEFAULT_LIMIT);
-    const defaultLimit = configSErvice.get<number>('defaultLimit');  
+    // console.log(process.env.DEFAULT_LIMIT);
+    this.defaultLimit = configSErvice.get<number>('DEFAULT_LIMIT');  
     console.log(this.defaultLimit)
   }
 

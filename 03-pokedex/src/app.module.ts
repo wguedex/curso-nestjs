@@ -9,6 +9,7 @@ import { SeedModule } from './seed/seed.module';
 import * as dotenv from 'dotenv';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './common/config/env.config';
+import { JoiValidationSchema } from './common/config/joi.validation';
 dotenv.config();
 
 @Module({
@@ -16,6 +17,7 @@ dotenv.config();
 
     ConfigModule.forRoot({
       load: [ EnvConfiguration ],
+      validationSchema: JoiValidationSchema
     }), 
 
     ServeStaticModule.forRoot({
