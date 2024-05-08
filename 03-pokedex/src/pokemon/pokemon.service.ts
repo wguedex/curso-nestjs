@@ -14,6 +14,7 @@ import * as bcryptjs from 'bcryptjs';
 
 import { v4 as uuid } from 'uuid';
 import { isEmpty } from 'class-validator';
+import { PaginationDTO } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class PokemonService {
@@ -39,11 +40,17 @@ export class PokemonService {
     return 'This action adds a new pokemon';
   }
 
-  findAll() {
+  findAll(paginationDTO: PaginationDTO) {
+
+    const {limit = 10, offset = 0} = paginationDTO;
 
     return this.pokemonModel.find()
-    .limit( 5 )
-    .skip( 5 ) 
+    .limit( limit )
+    .skip( offset ) 
+    .sort({
+      no : 1
+    })
+    .select('-__v')
     
   }
 
