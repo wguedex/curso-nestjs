@@ -7,10 +7,17 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 
 import * as dotenv from 'dotenv';
+import { ConfigModule } from '@nestjs/config';
+import { EnvConfiguration } from './common/config/env.config';
 dotenv.config();
 
 @Module({
   imports: [
+
+    ConfigModule.forRoot({
+      load: [ EnvConfiguration ],
+    }), 
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname,'..','public'),
       }),
