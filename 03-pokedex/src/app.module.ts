@@ -24,7 +24,9 @@ dotenv.config();
       rootPath: join(__dirname,'..','public'),
       }),
     PokemonModule , 
-    MongooseModule.forRoot(process.env.MONGODB_URL), CommonModule, SeedModule
+    MongooseModule.forRoot(process.env.MONGODB_URL, {
+      'dbName': 'pokemonsdb'
+  }), CommonModule, SeedModule
   ],
   controllers: [],
   providers: [],
