@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductsModule } from './products/products.module';
 
 @Module({ 
   imports: [ConfigModule.forRoot(), 
@@ -14,7 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     password: process.env.DB_PASSWORD, 
     autoLoadEntities:true, //carga automaticamente las entidades
     synchronize: true  // esto no es recomendable en prod. 
-  })
+  }), ProductsModule
 ],
 })
 export class AppModule {}
