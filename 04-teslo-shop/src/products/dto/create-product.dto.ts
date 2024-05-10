@@ -1,4 +1,5 @@
 import { IsArray, IsIn, IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength } from "class-validator";
+import { BeforeInsert, BeforeUpdate } from "typeorm";
 
 
 export class CreateProductDto {
@@ -36,4 +37,20 @@ export class CreateProductDto {
     @IsArray()
     @IsOptional()
     tags: string[];
+
+    @BeforeInsert()
+    checkSlugInsert() {
+        if (!this.slug) {
+            this.slug = this.title;
+        }
+        this.slug = this.slug
+            .toLowerCase()
+            .replaceAll(" ", "-")
+            .replaceAll("\"", "");
+    }
+
+    // @BeforeUpdate()
+
+    
+    
 }
