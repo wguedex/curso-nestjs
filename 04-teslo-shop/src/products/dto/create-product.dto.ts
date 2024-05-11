@@ -38,19 +38,5 @@ export class CreateProductDto {
     @IsOptional()
     tags: string[];
 
-    @BeforeInsert()
-    checkSlugInsert() {
-        if (!this.slug) {
-            this.slug = this.title;
-        }
-        this.slug = this.slug
-            .toLowerCase()
-            .replaceAll(" ", "-")
-            .replaceAll("\"", "");
-    }
-
-    // @BeforeUpdate()
-
-    
     
 }
