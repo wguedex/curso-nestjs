@@ -2,14 +2,17 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
-
+import { Repository } from 'typeorm'; 
 import * as bcrypt from 'bcrypt';
+ 
+import { CreateUserDto, LoginUserDto } from './dto/index';
 
+ 
 @Injectable()
 export class AuthService {
   constructor(
@@ -49,4 +52,24 @@ export class AuthService {
     throw new InternalServerErrorException('Please check server logs');
     
   }
+
+  async login(loginUserDto: LoginUserDto): Promise<User> {
+    const { password, email } = loginUserDto;
+
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: ['email', 'password'] // Asegura que se seleccionan el email y la contraseña
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Credentials are not valid (email)');
+    }
+
+    if (!bcrypt.compareSync(password, user.password)) {
+      throw new UnauthorizedException('Credentials are not valid (password)');
+    }
+
+    return user;
+  }
+
 }
