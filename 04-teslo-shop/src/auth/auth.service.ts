@@ -61,7 +61,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: ['email', 'password'] // Asegura que se seleccionan el email y la contraseña
+      select: ['id','email', 'password'] // Asegura que se seleccionan el email y la contraseña
     });
 
     if (!user) {
@@ -72,9 +72,9 @@ export class AuthService {
       throw new UnauthorizedException('Credentials are not valid (password)');
     }
 
-    return {
+    return { 
       ...user, 
-      token: this.getJwtToken({ email: user.email })
+      token: this.getJwtToken({ id: user.id })
     };
   }
 
