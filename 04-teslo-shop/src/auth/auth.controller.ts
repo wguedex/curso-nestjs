@@ -5,6 +5,8 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from './entities/user.entity';
 import { GetUser } from './decorators/get-user.decorator';
+import { RawHeaders } from './decorators/raw-headers.decorator';
+import { IncomingHttpHeaders } from 'http';
 
 @Controller('auth')
 export class AuthController {
@@ -26,8 +28,10 @@ export class AuthController {
     // @Req()
     // request: Express.Request
 
-    @GetUser() user: User
-
+    @GetUser() user: User,
+    @GetUser('email') userEmail:string,
+    @RawHeaders() rawHeaders: string[], 
+    // @Headers() headers: IncomingHttpHeaders
   ){
 
     // console.log(request)
@@ -35,7 +39,10 @@ export class AuthController {
     return {
       ok:true, 
       message: 'Hola mundo private', 
-      user
+      user, 
+      email: userEmail, 
+      rawHeaders, 
+      // Headers
     }
   }
 
