@@ -1,3 +1,4 @@
+
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -8,6 +9,9 @@ import {
 import { MessagesWsService } from './messages-ws.service';
 import { Socket, Server } from 'socket.io';
 import { NewMessageDto } from './dto/new-message.dto';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './../auth/interfaces/jwt-payload.interface';
+
 
 @WebSocketGateway({ cors: true })
 export class MessagesWsGateway
@@ -15,7 +19,10 @@ export class MessagesWsGateway
 {
   @WebSocketServer() wss: Server;
 
-  constructor(private readonly messagesWsService: MessagesWsService) {}
+  constructor(
+    private readonly messagesWsService: MessagesWsService, 
+    private readonly JwtService: JwtService
+  ) {}
 
   handleDisconnect(client: Socket) {
     // console.log('cliente desconectado', client.id)
@@ -26,7 +33,18 @@ export class MessagesWsGateway
   handleConnection(client: Socket) {
 
     const token = client.handshake.headers.authentication as string;
-    console.log({token})
+    let payload : JwtPayload;
+    
+    try {
+      
+      payload = this.JwtService.verify(token);
+
+    } catch (error) {
+        client.disconnect()
+        return;
+    }
+
+    console.log({ payload });
 
     // console.log('cliente conectado', client.id)
     this.messagesWsService.registerClient(client);
