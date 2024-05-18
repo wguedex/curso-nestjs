@@ -24,6 +24,10 @@ export class MessagesWsGateway
   }
 
   handleConnection(client: Socket) {
+
+    const token = client.handshake.headers.authentication as string;
+    console.log({token})
+
     // console.log('cliente conectado', client.id)
     this.messagesWsService.registerClient(client);
     console.log({ conectados: this.messagesWsService.getConnectedClients() });
@@ -48,6 +52,6 @@ export class MessagesWsGateway
       fullName: 'Soy Yo!',
       message: payload.message || 'no-message!!',
     });
-    
+
   }
 }
