@@ -13,11 +13,11 @@ export const connectToServer = (token:string) => {
   socket?.removeAllListeners(); 
   socket = manager.socket("/");
    
-  addListeners(socket);
+  addListeners( );
   // console.log({socket})
 };
 
-const addListeners = (socket: Socket) => {
+const addListeners = ( ) => {
   const serverStatusLabel = document.querySelector("#server-status")!;
   const clientsUl = document.querySelector("#clients-ul")!;
 
